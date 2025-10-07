@@ -67,6 +67,56 @@ def delete_category():
     del data.categories[category_id]
     return jsonify({"message": "Category deleted"})
 
+@app.route("/record", methods=["POST"])
+def create_record():
+    record_data = request.get_json()
+    record_id = data.record_id_counter
+    user_id = record_data.get("user_id")
+    category_id = record_data.get("category_id")
+    amount = record_data.get("amount")
+
+    if user_id not in data.users or category_id not in data.categories:
+        return jsonify({"error": "Invalid user or category ID"}), 400
+    data.records[record_id] = {
+        "id": record_id,
+        "user_id": user_id,
+        "category_id": category_id,
+        "create_date": datetime.datetime.now().isoformat(),
+        "amount": amount,
+    }
+    data.record_id_counter += 1 
+    return jsonify(data.records[record_id]), 201
+
+@app.route("/record/<int:record_id>", methods=["GET"])
+def get_record(record_id):
+    record = data.records.get(record_id)
+    if not record:
+        return jsonify({"error": "Record not found"}), 404
+    return jsonify(record)
+
+@app.route("/record/<int:record_id>", methods=["DELETE"])
+def delete_record(record_id):
+    if record_id in data.records:
+        del data.records[record_id]
+        return jsonify({"message": "Record deleted"})
+    return jsonify({"error": "Record not found"}), 404
+
+@app.route("/record", methods=["GET"])
+def get_records():
+    user_id = request.args.get("user_id", type=int)
+    category_id = request.args.get("category_id", type=int)
+
+    if user_id is None and category_id is None:
+        return jsonify({"error": "Parameters user_id or category_id required"}), 400
+
+    filtered = [
+        r for r in data.records.values()
+        if (user_id is None or r["user_id"] == user_id)
+        and (category_id is None or r["category_id"] == category_id)
+    ]
+
+    return jsonify(filtered)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
