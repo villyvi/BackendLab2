@@ -5,6 +5,10 @@ import os
 
 app = Flask(__name__)
 
+@app.route("/", methods=["GET"])
+def index():
+    return "Welcome to the API. See /user, /category, /record endpoints.", 200
+
 
 @app.route("/user", methods=["POST"])
 def create_user():
