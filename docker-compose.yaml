@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    container_name: lab3-db-1
+    environment:
+      POSTGRES_USER: villyvi
+      POSTGRES_PASSWORD: 13333
+      POSTGRES_DB: lab3_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - lab3_db_data:/var/lib/postgresql/data
+
+volumes:
+  lab3_db_data:
