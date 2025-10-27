@@ -54,3 +54,7 @@ type .\requirements.txt
 (кщо помилка з кодування)
 
 # посилання:
+
+Postman:
+
+https://villyvi-5088406.postman.co/workspace/Viktoria-Pylypchuk's-Workspace~9489ffb2-66fe-4ca6-8186-1b84958f75a3/collection/49071994-1fb3c899-2200-49b4-9706-12eb090cfdee?action=share&creator=49071994&active-environment=49071994-320fa9c9-4b50-4828-b7af-194e7a783d9c
