@@ -3,7 +3,8 @@ services:
     name: lab3-flask-app
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn "manage:create_app()"
+    startCommand: gunicorn "app:create_app()"
+
     envVars:
       - key: DATABASE_URL
         fromDatabase:
